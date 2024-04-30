@@ -4,25 +4,7 @@ import SherableForm from './SherableForm';
 import UpperBarExportBuilder from './UpperBarExportBuilder';
 import AllowedDomains from './AllowedDomains';
 import GeneralEB from './GeneralEB';
-
-const NavBarData = [
-    {
-        name: "Export Option",
-        stateKey: "exportOption"
-    },
-    {
-        name: "General",
-        stateKey: "general"
-    },
-    {
-        name: "Styling",
-        stateKey: "styling"
-    },
-    {
-        name: "Manager",
-        stateKey: "manager"
-    }
-];
+import StylingEB from './StylingEB';
 
 
 
@@ -121,7 +103,7 @@ function WebsiteChatbotEB() {
 
                 {showStates.general && <GeneralEB />}
 
-                {showStates.styling && (<div >hello style </div>)}
+                {showStates.styling && <StylingEB />}
 
                 {showStates.manager && (<div >hello manager </div>)}
 

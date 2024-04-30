@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-
-
 import { Cog6ToothIcon, LinkIcon } from '@heroicons/react/24/solid';
 
 export default function GeneralEB() {
+    const [description, setDescription] = useState({
+        name: "Simple Chatbot",
+        detail: ""
+    })
     const [name, setInput] = useState({
         inputname: "in-0",
         outputname: "out-0"
@@ -15,11 +17,16 @@ export default function GeneralEB() {
 
 
 
-
-    function handlenameChange(event) {
+    function handleDescriptionChange(event, identifier) {
+        setDescription({
+            ...description,
+            [identifier]: event.target.value
+        });
+    }
+    function handlenameChange(event, identifier) {
         setInput({
             ...name,
-            inputname: event.target.value
+            [identifier]: event.target.value
         });
     }
     return (
@@ -39,7 +46,7 @@ export default function GeneralEB() {
                         <p>Give a name to your interface</p>
                     </div>
                     <div className=" flex">
-                        <input type="text" className="border  focus:outline-none   rounded-lg m-2 px-2 p-1 w-full" value="Simple Chatbot" />
+                        <input onChange={(event) => handleDescriptionChange(event, 'name')} value={description.name} type="text" className="border  focus:outline-none   rounded-lg m-2 px-2 p-1 w-full" />
 
                     </div>
 
@@ -55,7 +62,7 @@ export default function GeneralEB() {
 
                     </div>
                     <div>
-                        <textarea name="" id="" cols="100" rows="5" className="w-full border shadow rounded-lg my-2 "></textarea>
+                        <textarea name="" id="" cols="100" rows="5" className="w-full border shadow rounded-lg my-2  " onChange={(event) => handleDescriptionChange(event, 'detail')} value={description.detail}></textarea>
                     </div>
                     <div className="flex m-2">
                         <p className=" m-1"> Password for sharing (Optional)</p>
@@ -95,11 +102,13 @@ export default function GeneralEB() {
                                 <tr className=' p-3 justify-center '>
                                     <td><div>
                                         <input className=' p-1 mx-2' type="checkbox" name="" id="" />
-                                        <label htmlFor="">in-0</label>
+                                        <label htmlFor="">{name.inputname}</label>
 
                                     </div>
                                     </td>
-                                    <td><input className=' border focus:outline-none p-1 ' type="text" /></td>
+                                    <td>
+                                        <input className=' border focus:outline-none p-1 ' onChange={(event) => handlenameChange(event, 'inputname')} value={name.inputname} type="text" />
+                                    </td>
                                     <td className='flex justify-end p-1'><input className='m-1 p-1 ' type="checkbox" name="" id="" /></td>
                                 </tr>
 
@@ -121,14 +130,15 @@ export default function GeneralEB() {
                             </thead >
                             <tbody>
                                 <tr className=' p-3 justify-center '>
-                                    <td><div>
-                                        <input className=' p-1 mx-2' type="checkbox" name="" id="" />
-                                        <label htmlFor="">{name.inputname}</label>
+                                    <td>
+                                        <div>
+                                            <input className=' p-1 mx-2' type="checkbox" name="" id="" />
+                                            <label htmlFor="">{name.outputname}</label>
 
-                                    </div>
+                                        </div>
                                     </td>
                                     <td>
-                                        <input onChange={handlenameChange} className=' border focus:outline-none p-1 ' type="text" /></td>
+                                        <input onChange={(event) => handlenameChange(event, 'outputname')} value={name.outputname} className=' border focus:outline-none p-1 ' type="text" /></td>
                                     <td className='flex justify-end p-1'><input className='m-1 p-1 ' type="checkbox" name="" id="" />
                                     </td>
                                 </tr>
@@ -147,4 +157,5 @@ export default function GeneralEB() {
         </div>
 
     )
+
 }

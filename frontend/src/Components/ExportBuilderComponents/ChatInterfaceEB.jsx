@@ -3,6 +3,7 @@ import SherableForm from './SherableForm'
 import AllowedDomains from './AllowedDomains'
 import UpperBarExportBuilder from './UpperBarExportBuilder';
 import GeneralEB from './GeneralEB';
+import StylingEB from './StylingEB';
 
 
 
@@ -60,7 +61,7 @@ export default function ChatInterfaceEB() {
 
                 {showStates.general && <GeneralEB />}
 
-                {showStates.styling && (<div >hello style </div>)}
+                {showStates.styling && <StylingEB />}
 
                 {showStates.manager && (<div >hello manager </div>)}
 
