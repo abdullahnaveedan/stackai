@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-
+import random
+import string
 # Create your models here.
 
 class EmailVerification(models.Model):
@@ -27,6 +28,33 @@ class ProjectsTemplate(models.Model):
 
     def __str__(self):
         return f"{self.id} - {self.title}"
+        
+class Category(models.Model):
+    name = models.CharField(max_length=100)
+    svg = models.TextField(blank=True, null=True)
 
-    
-    
+    def __str__(self):
+        return self.name
+
+
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    sub_catagory = models.CharField(max_length=100, default = None )
+    svg = models.TextField(blank=True, null=True)
+    def __str__(self):
+        return f"{self.category.name} - {self.pk}"
+
+def generate_unique_id():
+    numeric_part = ''.join(random.choices(string.digits, k=6))
+    alphabet_part = ''.join(random.choices(string.ascii_uppercase, k=3))
+    unique_id = f'{numeric_part}-{alphabet_part}'
+    return unique_id
+
+class BotRecord(models.Model):
+    id = models.CharField(max_length=10, primary_key=True, default=generate_unique_id)
+    username = models.ForeignKey(User, on_delete=models.CASCADE , default = None)
+    botname = models.CharField(max_length=50 , default = None)
+    system_prompt = models.CharField(max_length=5000 , default = None)
+
+    def __str__(self):
+        return self.id

@@ -18,3 +18,42 @@ class TemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProjectsTemplate
         fields = '__all__'
+class LoginSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email' , 'password']
+
+class VerifyEmail(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email']
+
+class GetOTP(serializers.ModelSerializer):
+    class Meta:
+        model = EmailVerification
+        fields = ['verification_code' , 'email']
+
+class GetCategory(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+
+class fetchSubCategories(serializers.Serializer):
+    id = serializers.IntegerField()
+
+class MiniBot(serializers.Serializer):
+    gptPrompt = serializers.CharField()
+    question = serializers.CharField()
+    
+class SaveBotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BotRecord
+        fields = ['username' , 'botname' , 'system_prompt'] 
+
+class FetchBotSerializer(serializers.Serializer):
+    class Meta:
+        model = BotRecord
+        fields = '__all__' 
+    
+class UserPreference(serializers.Serializer):
+    history = serializers.CharField()
