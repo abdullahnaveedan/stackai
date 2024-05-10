@@ -15,8 +15,6 @@ from .models import *
 import requests
 import openai
 
-key = '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'
-client = openai.Client(api_key=key)
 
 def index(request):
     bot = BotRecord.objects.get(id = "076278-IEL")
