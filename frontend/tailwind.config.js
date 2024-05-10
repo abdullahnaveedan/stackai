@@ -26,6 +26,10 @@ export default {
       colors :{
         primaryColor :"#eb456a",
         secondaryColor : "#31295e"
+      },
+      boxShadow: {
+        '3xl': '0 35px 60px -15px rgba(0, 0, 0, 0.3)',
+        custom: ' rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;',
       }
     },
   },

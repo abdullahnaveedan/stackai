@@ -1,5 +1,5 @@
 import React, { useState, createRef, useEffect } from "react";
-import logoImg from "../assets/react.svg.png";
+import logoImg from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
 
 const Otp = ({ length, onComplete }) => {

@@ -1,26 +1,54 @@
 import React, { useState } from "react";
-import logoImg from "../assets/react.svg.png";
-import validation from "./Validiation";
-import { Link } from "react-router-dom";
+import logoImg from "../../assets/logo.png";
+import validation from "../Validiation";
+import { Link, useNavigate } from "react-router-dom";
 
 function SignUp() {
   const [error, setError] = useState({});
   const [inpuValue, setInputValue] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
   });
+  
 
-  // onChangeHandler....
+
+  const navigate = useNavigate();
+  //onChangeHandler....
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setInputValue({ ...inpuValue, [name]: value });
-    console.log(inpuValue);
   };
+
   // submitHandler.....
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault();
     setError(validation(inpuValue));
+   
+    try {
+      const response = await fetch('https://customgbt.pythonanywhere.com/accounts/signup/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(inpuValue)
+      }); 
+     
+     if (!response.ok) {
+      console.log('Sign-up request failed');
+    }
+    else {
+     const result = await response.json();
+      console.log('Sign-up successful:', result);
+      const {token , message} = result
+      localStorage.setItem("token", token)
+      alert(message)
+      navigate("/Dashboard")
+    }
+    } catch (error) {
+      console.log("Error" , error)
+    }
+    
   };
   return (
     <div className="sm:container sm:mx-auto mx-8  ">
@@ -75,10 +103,10 @@ function SignUp() {
               className="input "
               type="text"
               placeholder="Full Name"
-              name="name"
+              name="username"
               onChange={onChangeHandler}
             />
-            {error.name && <p className="error">{error.name}</p>}
+            {error.username && <p className="error">{error.username}</p>}
             <input
               className="input"
               type="email"
@@ -100,8 +128,8 @@ function SignUp() {
           </form>
           <p className="tag-line">
             Already have an account?
-            <Link to="/login">
-            <span className=" text-[#eb456a]"> Login</span>
+            <Link to="/">
+              <span className=" text-[#eb456a]"> Login</span>
             </Link>
           </p>
         </div>

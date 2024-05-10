@@ -2,45 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base{
-  body{
-    @apply bg-gray-300
-  }
-}
 
-@layer utilities {
-  /*  =================== sign up =================== */
-  .card{
-    @apply  bg-gray-200 xsm:w-full md:w-[60%] lg:w-[40%] w-full px-5 m-auto mt-4 rounded-xl py-3
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none; /* Hide scrollbar on WebKit browsers */
   }
-  .sign-in-tag{
-    @apply bg-white sm:p-3  p-2  rounded-xl   flex  justify-around items-center
+  
+  /* Optional: If you want to hide scrollbar only for specific elements */
+  .element-with-scrollbar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
   }
-  .sign-in-tag p {
-    @apply  md:text-sm text-xs  font-medium text-[#31295e]
-  }
- .input{
-  @apply  bg-white rounded-xl sm:p-2  p-1 w-full my-2 outline-none
- }
- .tag-line{
-  @apply text-center md:text-sm text-xs py-2 font-medium text-[#31295e] pb-4
- }
- .tag-line2{
-  @apply text-center  text-xs md:text-lg py-2 font-medium text-black pb-4 
- }
- .btn{
-    @apply  flex items-center justify-center m-auto sm:w-60 w-44 my-2 text-center bg-[#eb456a] p-2 rounded-xl  text-white font-medium text-lg
- }
- .border-b{
-  @apply border-b-2 w-20 md:w-28 border-b-[#eb456a] mt-2 mb-2 
- }
- .error{
-  @apply text-red-600 text-sm
- }
-}
 
-::placeholder{
-  font-weight: 600;
-  color: #31295e;
-  padding-left: 5px;
-}
+  
+
+
+  @layer base{
+    body{
+      @apply bg-gray-300
+    }
+  }
+  
+  @layer utilities {
+    /*  =================== sign up =================== */
+    .card{
+      @apply  bg-gray-200 xsm:w-full md:w-[80%] lg:w-[40%] w-full px-5 m-auto mt-4 rounded-xl py-3
+    }
+    .sign-in-tag{
+      @apply bg-white sm:p-3  p-2  rounded-xl   flex  justify-around items-center
+    }
+    .sign-in-tag p {
+      @apply  md:text-sm text-xs  font-medium text-[#31295e]
+    }
+   .input{
+    @apply  bg-white rounded-xl sm:p-2  p-1 w-full my-2 outline-none
+   }
+   .tag-line{
+    @apply text-center md:text-sm text-xs py-2 font-medium text-[#31295e] pb-4
+   }
+   .tag-line2{
+    @apply text-center  text-xs md:text-lg py-2 font-medium text-black pb-4 
+   }
+   .btn{
+      @apply  flex items-center justify-center m-auto sm:w-60 w-44 my-2 text-center bg-[#eb456a] p-2 rounded-xl  text-white font-medium text-lg
+   }
+   .border-b{
+    @apply border-b-2 w-20 md:w-28 border-b-[#eb456a] mt-2 mb-2 
+   }
+   .error{
+    @apply text-red-600 text-sm
+   }
+  }
+  
+  ::placeholder{
+    font-weight: 600;
+    color: #31295e;
+    padding-left: 5px;
+  }

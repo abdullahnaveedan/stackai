@@ -5,6 +5,7 @@ class UserSerilizer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username' , 'email' , 'password']
+        
 class UserIdSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)
     def validate_username(self, value):
@@ -50,10 +51,9 @@ class SaveBotSerializer(serializers.ModelSerializer):
         model = BotRecord
         fields = ['username' , 'botname' , 'system_prompt'] 
 
-class FetchBotSerializer(serializers.Serializer):
+class BotRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = BotRecord
-        fields = '__all__' 
-    
+        fields = ['id', 'username', 'botname', 'system_prompt']
 class UserPreference(serializers.Serializer):
     history = serializers.CharField()

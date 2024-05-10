@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import logoImg from "../assets/react.svg.png";
-import validation from "./Validiation";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import logoImg from "../../assets/logo.png";
+import validation from "../Validiation";
+// import { Link } from "react-router-dom";
 
 function Login() {
   const [error, setError] = useState({});

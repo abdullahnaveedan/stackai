@@ -15,8 +15,12 @@ from .models import *
 import requests
 import openai
 
+key = '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'
+client = openai.Client(api_key=key)
 
 def index(request):
+    bot = BotRecord.objects.get(id = "076278-IEL")
+    print(bot.pub_date)
     return render(request , "index.html")
 class CreateAccount(APIView):
     def post(self, request):
@@ -184,15 +188,14 @@ class SaveBot(APIView):
 class GetBotsSerializer(APIView):
     def get(self, request):
         try:
-            id = request.query_params["id"]  
-            if id is not None:  
-                records = BotRecord.objects.filter(id = id)
-                serializer = FetchBotSerializer(records, many=True)
-                print(serializer)
+            username = request.query_params["username"]  # Use "username" instead of "id"
+            if username is not None:  
+                records = BotRecord.objects.filter(username=username)
+                serializer = BotRecordSerializer(records, many=True)               
                 return Response({'status': 200, 'payload': serializer.data}, status=status.HTTP_200_OK)
             else:
-                return Response({'status': 400, 'message': 'Invalid ID'}, status=status.HTTP_400_BAD_REQUEST)
-        except Exception as e:  # Catch specific exceptions for better error handling
+                return Response({'status': 400, 'message': 'Invalid username'}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
             return Response({'status': 400, 'message': 'Invalid request'}, status=status.HTTP_400_BAD_REQUEST)
 
 class PreferenceQuestions(APIView):
@@ -200,10 +203,18 @@ class PreferenceQuestions(APIView):
         serializer = UserPreference(data=request.data)
         if serializer.is_valid():
             history = serializer.validated_data.get('history')
+            response = client.chat.completions.create(
+                model="gpt-4",
+                messages=[
+                {"role": "system", "content": "You are the AI assistant and your roal is to generate question only."},
+                {"role": "user", "content": history}
+                ]
+            )
+            response = response.choices[0].message.content.strip()
             
-            print(history)
-            newQuestion = "Welcome to my ChatBot"
-
-            return Response({'status': 200, 'payload' : newQuestion}, status = status.HTTP_200_OK )       
+            colon_index = response.find(":")
+            if colon_index != -1:
+                response = response[colon_index + 2:]
+            return Response({'status': 200, 'payload' : response}, status = status.HTTP_200_OK )       
         return Response({'status': 400, 'message': 'Invalid data provided', 'errors': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
